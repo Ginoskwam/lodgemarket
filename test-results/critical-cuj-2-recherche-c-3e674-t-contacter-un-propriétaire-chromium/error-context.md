@@ -1,0 +1,102 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "BROQUES" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8]
+          - generic [ref=e21]: BROQUES
+        - navigation [ref=e22]:
+          - link "Annonces" [ref=e23] [cursor=pointer]:
+            - /url: /annonces
+          - link "Messages" [ref=e24] [cursor=pointer]:
+            - /url: /messages
+          - link "Mes annonces" [ref=e25] [cursor=pointer]:
+            - /url: /annonces/mes-annonces
+          - link "Publier" [ref=e26] [cursor=pointer]:
+            - /url: /annonces/nouvelle
+          - generic [ref=e27]:
+            - link "U Utilisateur" [ref=e28] [cursor=pointer]:
+              - /url: /profil/modifier
+              - generic [ref=e29]: U
+              - generic [ref=e30]: Utilisateur
+            - button "Déconnexion" [ref=e31] [cursor=pointer]
+    - main [ref=e32]:
+      - generic [ref=e34]:
+        - link "← Retour aux annonces" [ref=e35] [cursor=pointer]:
+          - /url: /annonces
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - img "Remorque" [ref=e40]
+            - generic [ref=e41]:
+              - heading "Remorque" [level=1] [ref=e42]
+              - generic [ref=e43]:
+                - generic [ref=e44]: Bricolage & Outils
+                - generic [ref=e45]:
+                  - generic [ref=e46]: 📍
+                  - text: Beaufays
+                - generic [ref=e47]: 👁️ 3 vues
+              - generic [ref=e48]:
+                - heading "Description" [level=2] [ref=e49]
+                - paragraph [ref=e50]: test
+              - generic [ref=e51]:
+                - heading "Informations pratiques" [level=2] [ref=e52]
+                - generic [ref=e53]:
+                  - generic [ref=e54]:
+                    - generic [ref=e55]: Nombre d'articles disponibles
+                    - generic [ref=e56]: 1 article
+                  - generic [ref=e57]:
+                    - generic [ref=e58]: ℹ️
+                    - paragraph [ref=e59]: Remise en main propre. Le paiement et la remise se font directement entre particuliers, hors plateforme.
+          - generic [ref=e60]:
+            - generic [ref=e61]:
+              - generic [ref=e62]:
+                - generic [ref=e63]: Prix par jour
+                - generic [ref=e64]: 35€
+              - button "Contacter le propriétaire" [ref=e66] [cursor=pointer]
+            - generic [ref=e67]:
+              - heading "Propriétaire" [level=2] [ref=e68]
+              - generic [ref=e69]:
+                - img "Gino" [ref=e71]
+                - paragraph [ref=e73]: Gino
+    - contentinfo [ref=e74]:
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - generic [ref=e77]:
+            - generic [ref=e78]:
+              - img [ref=e80]
+              - generic [ref=e93]: BROQUES
+            - paragraph [ref=e94]: Location de matériel entre voisins. Débrouille intelligente, chaleur de quartier.
+          - generic [ref=e95]:
+            - heading "Navigation" [level=3] [ref=e96]
+            - list [ref=e97]:
+              - listitem [ref=e98]:
+                - link "Annonces" [ref=e99] [cursor=pointer]:
+                  - /url: /annonces
+              - listitem [ref=e100]:
+                - link "Publier une annonce" [ref=e101] [cursor=pointer]:
+                  - /url: /annonces/nouvelle
+              - listitem [ref=e102]:
+                - link "Créer un compte" [ref=e103] [cursor=pointer]:
+                  - /url: /auth/register
+              - listitem [ref=e104]:
+                - link "Aide & FAQ" [ref=e105] [cursor=pointer]:
+                  - /url: /aide
+          - generic [ref=e106]:
+            - heading "Informations légales" [level=3] [ref=e107]
+            - list [ref=e108]:
+              - listitem [ref=e109]:
+                - link "Conditions Générales d'Utilisation" [ref=e110] [cursor=pointer]:
+                  - /url: /terms
+              - listitem [ref=e111]:
+                - link "Politique de Confidentialité" [ref=e112] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e113]:
+                - link "Contact" [ref=e114] [cursor=pointer]:
+                  - /url: mailto:info@newinc.be
+        - paragraph [ref=e116]: © 2026 BROQUES. Tous droits réservés.
+  - alert [ref=e117]
+```

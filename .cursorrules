@@ -1,0 +1,35 @@
+# Règles pour éviter de casser l'UI
+
+## ⚠️ IMPORTANT : Fichiers critiques à ne jamais modifier sans vérification
+
+### Fichiers CSS critiques
+- `app/globals.css` : Contient les directives Tailwind et les styles globaux
+  - ⚠️ NE JAMAIS modifier l'ordre des directives @tailwind et @import
+  - ⚠️ L'ordre actuel est : @import puis @tailwind (ne pas inverser)
+  - ⚠️ Toujours vérifier que les directives @tailwind sont présentes après modification
+
+### Fichiers de layout critiques
+- `app/layout.tsx` : Layout principal de l'application
+  - ⚠️ NE JAMAIS supprimer l'import de './globals.css'
+  - ⚠️ Vérifier que tous les composants critiques sont présents (Header, Footer, NotificationsProvider)
+
+### Vérifications à faire AVANT chaque commit
+1. ✅ Vérifier que `app/globals.css` contient bien les 3 directives @tailwind
+2. ✅ Vérifier que `app/layout.tsx` importe bien './globals.css'
+3. ✅ Vérifier que le build fonctionne : `npm run build`
+4. ✅ Vérifier visuellement que l'UI s'affiche correctement
+
+### Commandes de vérification
+```bash
+# Vérifier que globals.css contient les directives Tailwind
+grep -q "@tailwind base" app/globals.css && grep -q "@tailwind components" app/globals.css && grep -q "@tailwind utilities" app/globals.css && echo "✅ Tailwind directives présentes" || echo "❌ ERREUR: Directives Tailwind manquantes"
+
+# Vérifier que layout.tsx importe globals.css
+grep -q "import './globals.css'" app/layout.tsx && echo "✅ Import globals.css présent" || echo "❌ ERREUR: Import globals.css manquant"
+```
+
+### Règles générales
+- ⚠️ Toujours tester visuellement après modification de fichiers CSS
+- ⚠️ Ne jamais supprimer ou modifier l'ordre des imports critiques
+- ⚠️ Toujours nettoyer le cache (.next) après modification de CSS : `rm -rf .next`
+

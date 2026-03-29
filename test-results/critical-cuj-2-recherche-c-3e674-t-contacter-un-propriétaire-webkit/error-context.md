@@ -1,0 +1,76 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - link "BROQUES" [ref=e6]:
+        - /url: /
+        - img [ref=e8]
+        - text: BROQUES
+      - navigation [ref=e21]:
+        - link "Annonces" [ref=e22]:
+          - /url: /annonces
+        - link "Connexion" [ref=e23]:
+          - /url: /auth/login
+        - link "Inscription" [ref=e24]:
+          - /url: /auth/register
+      - link "Connexion" [ref=e26]:
+        - /url: /auth/login
+  - main [ref=e27]:
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - img [ref=e33]
+        - heading "Connexion" [level=1] [ref=e46]
+        - paragraph [ref=e47]: Accédez à votre compte BROQUES
+      - generic [ref=e48]:
+        - generic [ref=e49]:
+          - text: Email
+          - textbox "Email" [ref=e50]:
+            - /placeholder: votre@email.com
+        - generic [ref=e51]:
+          - text: Mot de passe
+          - textbox "Mot de passe" [ref=e52]:
+            - /placeholder: ••••••••
+        - button "Se connecter" [ref=e53]
+      - paragraph [ref=e54]:
+        - text: Pas encore de compte ?
+        - link "Créer un compte" [ref=e55]:
+          - /url: /auth/register
+  - contentinfo [ref=e56]:
+    - generic [ref=e57]:
+      - generic [ref=e58]:
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - img [ref=e62]
+            - text: BROQUES
+          - paragraph [ref=e75]: Location de matériel entre voisins. Débrouille intelligente, chaleur de quartier.
+        - generic [ref=e76]:
+          - heading "Navigation" [level=3] [ref=e77]
+          - list [ref=e78]:
+            - listitem [ref=e79]:
+              - link "Annonces" [ref=e80]:
+                - /url: /annonces
+            - listitem [ref=e81]:
+              - link "Publier une annonce" [ref=e82]:
+                - /url: /annonces/nouvelle
+            - listitem [ref=e83]:
+              - link "Créer un compte" [ref=e84]:
+                - /url: /auth/register
+            - listitem [ref=e85]:
+              - link "Aide & FAQ" [ref=e86]:
+                - /url: /aide
+        - generic [ref=e87]:
+          - heading "Informations légales" [level=3] [ref=e88]
+          - list [ref=e89]:
+            - listitem [ref=e90]:
+              - link "Conditions Générales d'Utilisation" [ref=e91]:
+                - /url: /terms
+            - listitem [ref=e92]:
+              - link "Politique de Confidentialité" [ref=e93]:
+                - /url: /privacy
+            - listitem [ref=e94]:
+              - link "Contact" [ref=e95]:
+                - /url: mailto:info@newinc.be
+      - paragraph [ref=e97]: © 2026 BROQUES. Tous droits réservés.
+```

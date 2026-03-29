@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+@import 'leaflet/dist/leaflet.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #C2410C; /* Orange brûlé BROQUES */
+  --color-text: #111827;
+  --color-text-secondary: #6B7280;
+  --color-bg: #F9FAFB;
+  --color-success: #10B981;
+}
+
+body {
+  color: var(--color-text);
+  background-color: #faf9f6;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  /* Design System - Boutons */
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-3 rounded-xl font-semibold text-base;
+    @apply hover:bg-primary-dark transition-all duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+    box-shadow: 0 4px 12px 0 rgba(194, 65, 12, 0.15), 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.1), 0 2px 6px 0 rgba(0, 0, 0, 0.06);
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-primary px-6 py-3 rounded-xl font-semibold text-base border-2 border-primary;
+    @apply hover:bg-primary-50 transition-all duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08), 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  .btn-ghost {
+    @apply text-gray-text px-4 py-2 font-medium rounded-xl;
+    @apply hover:bg-white/60 transition-colors duration-200;
+  }
+
+  /* Design System - Cartes */
+  .card {
+    @apply bg-white rounded-2xl border border-white/50;
+    @apply transition-all duration-200;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08), 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  .card-hover {
+    @apply card cursor-pointer hover:scale-[1.01];
+  }
+  .card-hover:hover {
+    box-shadow: 0 4px 12px 0 rgba(194, 65, 12, 0.15), 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  /* Design System - Inputs */
+  .input {
+    @apply w-full px-4 py-3 border border-gray-200 rounded-xl;
+    @apply text-gray-text bg-white;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary;
+    @apply transition-all duration-200;
+    @apply placeholder:text-gray-400;
+    height: 48px; /* Hauteur fixe pour uniformiser select et input */
+  }
+  
+  /* S'assurer que les select ont la même hauteur */
+  select.input {
+    height: 48px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+  
+  /* Désactiver la flèche native pour le sélecteur de langue */
+  select.input.language-selector {
+    background-image: none !important;
+    padding-right: 1.5rem;
+  }
+  
+  .input-error {
+    border-color: #B91C1C; /* brique */
+  }
+  .input-error:focus {
+    --tw-ring-color: rgba(185, 28, 28, 0.2);
+    border-color: #B91C1C;
+  }
+
+  /* Design System - Typographie */
+  .heading-1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold text-gray-text leading-tight;
+    @apply tracking-tight;
+  }
+  
+  .heading-2 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-gray-text leading-tight;
+    @apply tracking-tight;
+  }
+  
+  .heading-3 {
+    @apply text-2xl md:text-3xl font-semibold text-gray-text;
+  }
+  
+  .body-large {
+    @apply text-lg md:text-xl text-gray-text leading-relaxed;
+  }
+  
+  .body-text {
+    @apply text-base text-gray-text leading-relaxed;
+  }
+  
+  .text-secondary {
+    @apply text-base text-gray-secondary;
+  }
+  
+  .text-small {
+    @apply text-sm text-gray-secondary;
+  }
+
+  /* Design System - Badges */
+  .badge {
+    @apply inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium;
+  }
+  
+  .badge-primary {
+    @apply badge border;
+    background-color: #FEF2F2; /* brique-50 */
+    color: #991B1B; /* brique-700 */
+    border-color: #FECACA; /* brique-200 */
+  }
+  
+  .badge-gray {
+    @apply badge bg-gray-100 text-gray-700;
+  }
+  
+  .badge-success {
+    @apply badge bg-green-50 text-success;
+  }
+  
+  .badge-coral {
+    @apply badge border;
+    background-color: #FEF2F2; /* brique-50 */
+    color: #991B1B; /* brique-700 */
+    border-color: #FECACA; /* brique-200 */
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Stitch / Material Symbols (léger) */
+  .material-symbols-outlined {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 300,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+
+  .glass-nav-estate {
+    background: rgba(250, 249, 246, 0.8);
+    backdrop-filter: blur(20px);
+  }
+}
+
+/* Animation flottante */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Styles Leaflet */
+.leaflet-container {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px -2px rgba(249, 115, 22, 0.2);
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  padding: 0;
+}

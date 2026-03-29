@@ -1,0 +1,120 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "BROQUES" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8]
+          - generic [ref=e21]: BROQUES
+        - navigation [ref=e22]:
+          - link "Annonces" [ref=e23] [cursor=pointer]:
+            - /url: /annonces
+          - link "Messages" [ref=e24] [cursor=pointer]:
+            - /url: /messages
+          - link "Mes annonces" [ref=e25] [cursor=pointer]:
+            - /url: /annonces/mes-annonces
+          - link "Publier" [ref=e26] [cursor=pointer]:
+            - /url: /annonces/nouvelle
+          - generic [ref=e27]:
+            - link "U Utilisateur" [ref=e28] [cursor=pointer]:
+              - /url: /profil/modifier
+              - generic [ref=e29]: U
+              - generic [ref=e30]: Utilisateur
+            - button "Déconnexion" [ref=e31] [cursor=pointer]
+    - main [ref=e32]:
+      - generic [ref=e34]:
+        - link "← Retour aux annonces" [ref=e35] [cursor=pointer]:
+          - /url: /annonces
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - heading "Publier une annonce" [level=1] [ref=e38]
+            - paragraph [ref=e39]: Partagez votre matériel avec la communauté
+          - generic [ref=e40]:
+            - generic [ref=e41]:
+              - generic [ref=e42]: Titre de l'annonce *
+              - textbox "Titre de l'annonce *" [ref=e43]:
+                - /placeholder: "Ex: Perceuse visseuse Bosch professionnelle"
+            - generic [ref=e44]:
+              - generic [ref=e45]:
+                - generic [ref=e46]: Catégorie *
+                - combobox "Catégorie *" [ref=e47]:
+                  - option "Bricolage & Outils" [selected]
+                  - option "Jardinage & Extérieur"
+                  - option "Événementiel & Fêtes"
+                  - option "Audio & Musique"
+                  - option "Sport & Loisirs"
+                  - option "Transport & Mobilité"
+                  - option "Multimédia & Électronique"
+                  - option "Maison & Décoration"
+                  - option "Cuisine & Électroménager"
+                  - option "Autre"
+              - generic [ref=e48]:
+                - generic [ref=e49]: Ville *
+                - 'textbox "Ex: Bruxelles" [ref=e51]'
+            - generic [ref=e52]:
+              - generic [ref=e53]:
+                - generic [ref=e54]: Prix par jour (€) *
+                - spinbutton "Prix par jour (€) *" [ref=e55]
+              - generic [ref=e56]:
+                - generic [ref=e57]: Caution indicative (€)
+                - spinbutton "Caution indicative (€)" [ref=e58]
+              - generic [ref=e59]:
+                - generic [ref=e60]: Nombre d'articles disponibles *
+                - spinbutton "Nombre d'articles disponibles *" [ref=e61]: "1"
+            - generic [ref=e62]:
+              - generic [ref=e63]: Description *
+              - textbox "Description *" [ref=e64]:
+                - /placeholder: Décrivez votre matériel, son état, son utilisation...
+            - generic [ref=e65]:
+              - generic [ref=e66]: Règles spécifiques
+              - textbox "Règles spécifiques" [ref=e67]:
+                - /placeholder: "Ex: Retour sous 48h, utilisation en intérieur uniquement..."
+            - generic [ref=e68]:
+              - generic [ref=e69]: Photos (1 à 5) *
+              - button "Photos (1 à 5) *" [ref=e70]
+              - paragraph [ref=e71]: 0 / 5 photo sélectionnée
+            - generic [ref=e72]:
+              - button "Publier l'annonce" [ref=e73] [cursor=pointer]
+              - link "Annuler" [ref=e74] [cursor=pointer]:
+                - /url: /annonces
+    - contentinfo [ref=e75]:
+      - generic [ref=e76]:
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - generic [ref=e79]:
+              - img [ref=e81]
+              - generic [ref=e94]: BROQUES
+            - paragraph [ref=e95]: Location de matériel entre voisins. Débrouille intelligente, chaleur de quartier.
+          - generic [ref=e96]:
+            - heading "Navigation" [level=3] [ref=e97]
+            - list [ref=e98]:
+              - listitem [ref=e99]:
+                - link "Annonces" [ref=e100] [cursor=pointer]:
+                  - /url: /annonces
+              - listitem [ref=e101]:
+                - link "Publier une annonce" [ref=e102] [cursor=pointer]:
+                  - /url: /annonces/nouvelle
+              - listitem [ref=e103]:
+                - link "Créer un compte" [ref=e104] [cursor=pointer]:
+                  - /url: /auth/register
+              - listitem [ref=e105]:
+                - link "Aide & FAQ" [ref=e106] [cursor=pointer]:
+                  - /url: /aide
+          - generic [ref=e107]:
+            - heading "Informations légales" [level=3] [ref=e108]
+            - list [ref=e109]:
+              - listitem [ref=e110]:
+                - link "Conditions Générales d'Utilisation" [ref=e111] [cursor=pointer]:
+                  - /url: /terms
+              - listitem [ref=e112]:
+                - link "Politique de Confidentialité" [ref=e113] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e114]:
+                - link "Contact" [ref=e115] [cursor=pointer]:
+                  - /url: mailto:info@newinc.be
+        - paragraph [ref=e117]: © 2026 BROQUES. Tous droits réservés.
+  - alert [ref=e118]
+```

@@ -1,0 +1,76 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "BROQUES" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8]
+          - generic [ref=e21]: BROQUES
+        - navigation [ref=e22]:
+          - link "Annonces" [ref=e23] [cursor=pointer]:
+            - /url: /annonces
+          - link "Connexion" [ref=e24] [cursor=pointer]:
+            - /url: /auth/login
+          - link "Inscription" [ref=e25] [cursor=pointer]:
+            - /url: /auth/register
+    - main [ref=e26]:
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - img [ref=e32]
+          - heading "Connexion" [level=1] [ref=e45]
+          - paragraph [ref=e46]: Accédez à votre compte BROQUES
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - generic [ref=e49]: Email
+            - textbox "Email" [ref=e50]:
+              - /placeholder: votre@email.com
+          - generic [ref=e51]:
+            - generic [ref=e52]: Mot de passe
+            - textbox "Mot de passe" [ref=e53]:
+              - /placeholder: ••••••••
+          - button "Se connecter" [ref=e54] [cursor=pointer]
+        - paragraph [ref=e55]:
+          - text: Pas encore de compte ?
+          - link "Créer un compte" [ref=e56] [cursor=pointer]:
+            - /url: /auth/register
+    - contentinfo [ref=e57]:
+      - generic [ref=e58]:
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - generic [ref=e61]:
+              - img [ref=e63]
+              - generic [ref=e76]: BROQUES
+            - paragraph [ref=e77]: Location de matériel entre voisins. Débrouille intelligente, chaleur de quartier.
+          - generic [ref=e78]:
+            - heading "Navigation" [level=3] [ref=e79]
+            - list [ref=e80]:
+              - listitem [ref=e81]:
+                - link "Annonces" [ref=e82] [cursor=pointer]:
+                  - /url: /annonces
+              - listitem [ref=e83]:
+                - link "Publier une annonce" [ref=e84] [cursor=pointer]:
+                  - /url: /annonces/nouvelle
+              - listitem [ref=e85]:
+                - link "Créer un compte" [ref=e86] [cursor=pointer]:
+                  - /url: /auth/register
+              - listitem [ref=e87]:
+                - link "Aide & FAQ" [ref=e88] [cursor=pointer]:
+                  - /url: /aide
+          - generic [ref=e89]:
+            - heading "Informations légales" [level=3] [ref=e90]
+            - list [ref=e91]:
+              - listitem [ref=e92]:
+                - link "Conditions Générales d'Utilisation" [ref=e93] [cursor=pointer]:
+                  - /url: /terms
+              - listitem [ref=e94]:
+                - link "Politique de Confidentialité" [ref=e95] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e96]:
+                - link "Contact" [ref=e97] [cursor=pointer]:
+                  - /url: mailto:info@newinc.be
+        - paragraph [ref=e99]: © 2026 BROQUES. Tous droits réservés.
+  - alert [ref=e100]
+```

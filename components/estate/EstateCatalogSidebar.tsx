@@ -59,16 +59,17 @@ export function EstateCatalogSidebar({ locale }: Props) {
         </div>
         <div>
           <label className="mb-4 block text-xs font-bold uppercase tracking-widest text-estate-on-surface-variant">
-            Prix max / jour (€)
+            Prix de vente max (€)
           </label>
           <input
-            key={sp.get('prix_max') ?? ''}
+            key={sp.get('prix_vente_max') ?? ''}
             type="number"
             min={0}
-            defaultValue={sp.get('prix_max') ?? ''}
-            placeholder="Ex: 200"
+            step={1000}
+            defaultValue={sp.get('prix_vente_max') ?? ''}
+            placeholder="Ex: 1 500 000"
             className="w-full rounded-lg border-0 bg-estate-surface p-3 text-sm shadow-sm focus:ring-1 focus:ring-estate-primary"
-            onBlur={(e) => apply({ prix_max: e.target.value.trim() })}
+            onBlur={(e) => apply({ prix_vente_max: e.target.value.trim() })}
           />
         </div>
         <div className="rounded-xl border border-estate-secondary-container bg-estate-secondary-container/30 p-4">

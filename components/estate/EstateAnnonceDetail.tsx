@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { ContactButton } from '@/components/ContactButton'
 import { EditAnnonceButton } from '@/components/EditAnnonceButton'
 import { IncrementVues } from '@/components/IncrementVues'
+import { formatEuroEUR } from '@/lib/format-euro'
 import type { Annonce, Profile } from '@/types/database'
 import { EstateCertifiedBadge } from './EstateBadge'
 import { EstateButton } from './EstateButton'
@@ -24,6 +25,10 @@ export async function EstateAnnonceDetail({ annonce, isOwner, count, locale }: P
   const thumb1 = photos[1]
   const thumb2 = photos[2]
 
+  const prixVente = annonce.prix_vente
+  const prixVenteLabel =
+    prixVente != null && prixVente > 0 ? formatEuroEUR(prixVente) : 'Sur demande'
+
   const metrics = [
     {
       icon: 'analytics' as const,
@@ -32,8 +37,8 @@ export async function EstateAnnonceDetail({ annonce, isOwner, count, locale }: P
     },
     {
       icon: 'payments' as const,
-      label: 'Prix / jour',
-      value: `${annonce.prix_jour} €`,
+      label: 'Prix de vente',
+      value: prixVenteLabel,
     },
     {
       icon: 'history' as const,
@@ -99,9 +104,9 @@ export async function EstateAnnonceDetail({ annonce, isOwner, count, locale }: P
           <div className="flex flex-wrap gap-8 md:gap-12">
             <div>
               <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-estate-on-surface-variant">
-                Prix / jour
+                Prix de vente
               </p>
-              <p className="font-estate-serif text-2xl text-estate-primary">{annonce.prix_jour} €</p>
+              <p className="font-estate-serif text-2xl text-estate-primary">{prixVenteLabel}</p>
             </div>
             <div>
               <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-estate-on-surface-variant">

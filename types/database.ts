@@ -21,7 +21,10 @@ export type Annonce = {
   titre: string
   description: string
   categorie: 'Bricolage & Outils' | 'Jardinage & Extérieur' | 'Événementiel & Fêtes' | 'Audio & Musique' | 'Sport & Loisirs' | 'Transport & Mobilité' | 'Multimédia & Électronique' | 'Maison & Décoration' | 'Cuisine & Électroménager' | 'Autre'
+  /** @deprecated modèle location — à terme remplacé par la vente */
   prix_jour: number
+  /** Prix de vente du bien (€), pour annonces achat/vente gîte */
+  prix_vente?: number | null
   caution_indicative: number | null
   ville: string
   photos: string[] // URLs des photos

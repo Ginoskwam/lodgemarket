@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getLocale } from 'next-intl/server'
+import { EstateBrandMark } from './EstateBrandMark'
 import { EstateIcon } from './EstateIcon'
 
 export async function EstateFooter() {
@@ -10,7 +11,7 @@ export async function EstateFooter() {
     <footer className="w-full bg-estate-surface-container-low pt-16 pb-8">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-8 md:grid-cols-4 md:px-12">
         <div className="space-y-6">
-          <div className="font-estate-serif text-xl text-estate-primary">Lodgemarket</div>
+          <EstateBrandMark href={p} variant="footer" />
           <p className="max-w-xs text-sm leading-relaxed text-estate-on-surface/60">
             La première place de marché dédiée aux actifs locatifs de prestige et à l&apos;hospitalité
             rurale certifiée.

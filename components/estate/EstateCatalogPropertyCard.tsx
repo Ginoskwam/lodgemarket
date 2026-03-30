@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { EstateCertifiedBadge, EstateNeutralBadge } from './EstateBadge'
 import { EstateIcon } from './EstateIcon'
+import { formatEuroEUR } from '@/lib/format-euro'
 import type { Annonce } from '@/types/database'
 
 type Props = {
@@ -12,7 +13,9 @@ type Props = {
 
 export function EstateCatalogPropertyCard({ annonce, href, variant = 'default' }: Props) {
   const cover = annonce.photos?.[0]
-  const priceLabel = `${annonce.prix_jour} €`
+  const vente = annonce.prix_vente
+  const priceLabel =
+    vente != null && vente > 0 ? formatEuroEUR(vente) : 'Prix sur demande'
 
   return (
     <div className="group overflow-hidden rounded-xl bg-estate-surface-container-lowest shadow-estate transition-all duration-500 hover:shadow-estate-hover">
@@ -48,7 +51,7 @@ export function EstateCatalogPropertyCard({ annonce, href, variant = 'default' }
           </div>
           <div className="text-right">
             <p className="text-2xl font-bold text-estate-primary">{priceLabel}</p>
-            <p className="text-xs text-estate-outline">par jour</p>
+            <p className="text-xs text-estate-outline">prix de vente</p>
           </div>
         </div>
         <div className="mb-6 grid grid-cols-3 gap-4 border-y border-estate-outline-variant/15 py-6">

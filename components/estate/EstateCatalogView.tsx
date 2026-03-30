@@ -25,11 +25,11 @@ function CatalogInner({ locale }: { locale: string }) {
         .order('date_creation', { ascending: false })
 
       const ville = searchParams.get('ville')
-      const prixMax = searchParams.get('prix_max')
+      const prixVenteMax = searchParams.get('prix_vente_max')
       if (ville) query = query.ilike('ville', `%${ville}%`)
-      if (prixMax) {
-        const n = parseFloat(prixMax)
-        if (!Number.isNaN(n) && n >= 0) query = query.lte('prix_jour', n)
+      if (prixVenteMax) {
+        const n = parseFloat(prixVenteMax)
+        if (!Number.isNaN(n) && n >= 0) query = query.lte('prix_vente', n)
       }
 
       const { data, error } = await query

@@ -4,13 +4,16 @@ export function EstateIcon({
   name,
   className,
   filled,
+  title,
 }: {
   name: string
   className?: string
   filled?: boolean
+  title?: string
 }) {
   return (
     <span
+      title={title}
       className={cn('material-symbols-outlined select-none', className)}
       style={
         filled

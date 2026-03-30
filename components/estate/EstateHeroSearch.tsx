@@ -30,14 +30,15 @@ export async function EstateHeroSearch() {
         <EstateIcon name="payments" className="text-estate-outline" />
         <div className="text-left">
           <label className="block text-[10px] font-bold uppercase tracking-wider text-estate-outline">
-            Budget max / jour (€)
+            Budget d&apos;achat max (€)
           </label>
           <input
-            name="prix_max"
+            name="prix_vente_max"
             type="number"
             min={0}
+            step={1000}
             className="w-full border-0 bg-transparent p-0 font-medium text-estate-on-surface focus:ring-0"
-            placeholder="Ex: 150"
+            placeholder="Ex: 1 200 000"
           />
         </div>
       </div>

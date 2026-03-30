@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import type { Annonce } from '@/types/database'
 import { CityAutocomplete } from '@/components/AddressAutocomplete'
@@ -13,6 +14,8 @@ import { CityAutocomplete } from '@/components/AddressAutocomplete'
 export default function ModifierAnnoncePage() {
   const router = useRouter()
   const params = useParams()
+  const locale = useLocale()
+  const t = useTranslations('announcements')
   const annonceId = params.id as string
 
   const [loading, setLoading] = useState(true)
@@ -26,7 +29,7 @@ export default function ModifierAnnoncePage() {
   const [description, setDescription] = useState('')
   const [categorie, setCategorie] = useState('')
   const [ville, setVille] = useState('')
-  const [prixJour, setPrixJour] = useState('')
+  const [prixVente, setPrixVente] = useState('')
   const [cautionIndicative, setCautionIndicative] = useState('')
   const [nombreArticles, setNombreArticles] = useState('1')
   const [reglesSpecifiques, setReglesSpecifiques] = useState('')
@@ -78,7 +81,11 @@ export default function ModifierAnnoncePage() {
       const categorieFromDb = (data.categorie || '').trim()
       setCategorie(categorieFromDb || categories[0] || '')
       setVille(data.ville || '')
-      setPrixJour(data.prix_jour?.toString() || '')
+      setPrixVente(
+        data.prix_vente != null && data.prix_vente > 0
+          ? String(data.prix_vente)
+          : ''
+      )
       setCautionIndicative(data.caution_indicative?.toString() || '')
       setNombreArticles(data.nombre_articles?.toString() || '1')
       setReglesSpecifiques(data.regles_specifiques || '')
@@ -137,14 +144,14 @@ export default function ModifierAnnoncePage() {
     setError(null)
 
     // Validation
-    if (!titre.trim() || !description.trim() || !categorie || !ville || !prixJour) {
+    if (!titre.trim() || !description.trim() || !categorie || !ville || !prixVente.trim()) {
       setError('Veuillez remplir tous les champs obligatoires')
       return
     }
 
-    const prix = parseFloat(prixJour)
-    if (isNaN(prix) || prix <= 0) {
-      setError('Le prix par jour doit être un nombre positif')
+    const prix = parseFloat(prixVente.replace(/\s/g, '').replace(',', '.'))
+    if (Number.isNaN(prix) || prix <= 0) {
+      setError(t('invalidSalePrice'))
       return
     }
 
@@ -169,7 +176,8 @@ export default function ModifierAnnoncePage() {
         titre: titre.trim(),
         description: description.trim(),
         ville: ville.trim(),
-        prix_jour: prix,
+        prix_jour: 0,
+        prix_vente: prix,
         caution_indicative: cautionIndicative ? parseFloat(cautionIndicative) : null,
         regles_specifiques: reglesSpecifiques.trim() || null,
         disponible,
@@ -240,7 +248,7 @@ export default function ModifierAnnoncePage() {
       }
 
       // Rediriger vers la page de l'annonce
-      router.push(`/annonces/${annonceId}`)
+      router.push(`/${locale}/annonces/${annonceId}`)
     } catch (error: any) {
       console.error('Erreur lors de la mise à jour:', error)
       console.error('Détails de l\'erreur:', {
@@ -371,30 +379,17 @@ La validation de la catégorie sera gérée côté application.`
         {/* Prix, caution et nombre d'articles */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           <div>
-            <label htmlFor="prix_jour" className="block text-sm font-medium text-gray-700 mb-2">
-              Prix par jour (€) *
+            <label htmlFor="prix_vente" className="block text-sm font-medium text-gray-700 mb-2">
+              {t('salePrice')} *
             </label>
             <input
-              type="text"
-              id="prix_jour"
-              value={prixJour}
-              onChange={(e) => {
-                const value = e.target.value
-                // Permettre uniquement les nombres, le point et la virgule
-                if (value === '' || /^[0-9]*[.,]?[0-9]*$/.test(value)) {
-                  // Remplacer la virgule par un point
-                  const normalizedValue = value.replace(',', '.')
-                  setPrixJour(normalizedValue)
-                }
-              }}
-              onBlur={(e) => {
-                // Formater la valeur au blur pour avoir au plus 2 décimales
-                const value = parseFloat(e.target.value)
-                if (!isNaN(value) && value >= 0) {
-                  setPrixJour(value.toFixed(2).replace(/\.?0+$/, ''))
-                }
-              }}
-              placeholder="0.00"
+              type="number"
+              id="prix_vente"
+              step="1000"
+              min="1"
+              value={prixVente}
+              onChange={(e) => setPrixVente(e.target.value)}
+              placeholder={t('salePricePlaceholder')}
               className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-gray-900 bg-white transition-all"
               required
             />
@@ -540,7 +535,7 @@ La validation de la catégorie sera gérée côté application.`
           </button>
           <button
             type="button"
-            onClick={() => router.push(`/annonces/${annonceId}`)}
+            onClick={() => router.push(`/${locale}/annonces/${annonceId}`)}
             className="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-all"
           >
             Annuler

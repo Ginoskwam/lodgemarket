@@ -5,6 +5,7 @@ import { useLocale } from 'next-intl'
 import { useState } from 'react'
 import { cn } from '@/lib/cn'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
+import { EstateBrandMark } from './EstateBrandMark'
 import { EstateButton } from './EstateButton'
 
 const navLink =
@@ -17,12 +18,7 @@ export function EstateHeader() {
 
   return (
     <nav className="glass-nav-estate fixed top-0 z-50 flex w-full max-w-full items-center justify-between border-b border-estate-outline-variant/10 px-6 py-4 shadow-sm md:px-8">
-      <Link
-        href={prefix}
-        className="font-estate-serif text-2xl italic tracking-tight text-estate-primary"
-      >
-        Lodgemarket
-      </Link>
+      <EstateBrandMark href={prefix} priority />
 
       <div className="hidden items-center gap-8 md:flex">
         <Link

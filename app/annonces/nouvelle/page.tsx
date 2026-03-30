@@ -20,7 +20,7 @@ export default function NouvelleAnnoncePage() {
   const [titre, setTitre] = useState('')
   const [categorie, setCategorie] = useState<'Bricolage & Outils' | 'Jardinage & Extérieur' | 'Événementiel & Fêtes' | 'Audio & Musique' | 'Sport & Loisirs' | 'Transport & Mobilité' | 'Multimédia & Électronique' | 'Maison & Décoration' | 'Cuisine & Électroménager' | 'Autre'>('Bricolage & Outils')
   const [ville, setVille] = useState('')
-  const [prixJour, setPrixJour] = useState('')
+  const [prixVente, setPrixVente] = useState('')
   const [cautionIndicative, setCautionIndicative] = useState('')
   const [nombreArticles, setNombreArticles] = useState('1')
   const [description, setDescription] = useState('')
@@ -118,8 +118,14 @@ export default function NouvelleAnnoncePage() {
     e.preventDefault()
     setError(null)
 
-    if (!titre.trim() || !description.trim() || !ville.trim() || !prixJour) {
+    if (!titre.trim() || !description.trim() || !ville.trim() || !prixVente.trim()) {
       setError('Veuillez remplir tous les champs obligatoires')
+      return
+    }
+
+    const prixVenteNum = parseFloat(prixVente.replace(/\s/g, '').replace(',', '.'))
+    if (Number.isNaN(prixVenteNum) || prixVenteNum <= 0) {
+      setError('Indiquez un prix de vente valide (nombre positif).')
       return
     }
 
@@ -161,7 +167,8 @@ export default function NouvelleAnnoncePage() {
           description: description.trim(),
           categorie,
           ville: ville.trim(),
-          prix_jour: parseFloat(prixJour),
+          prix_jour: 0,
+          prix_vente: prixVenteNum,
           caution_indicative: cautionIndicative ? parseFloat(cautionIndicative) : null,
           nombre_articles: parseInt(nombreArticles) || 1,
           regles_specifiques: reglesSpecifiques.trim() || null,
@@ -272,22 +279,22 @@ export default function NouvelleAnnoncePage() {
               </div>
             </div>
 
-            {/* Prix */}
+            {/* Prix de vente */}
             <div className="grid md:grid-cols-3 gap-4 items-start">
               <div className="flex flex-col">
-                <label htmlFor="prix_jour" className="block text-sm font-medium text-charbon-text mb-2 min-h-[1.5rem]">
-                  Prix par jour (€) *
+                <label htmlFor="prix_vente" className="block text-sm font-medium text-charbon-text mb-2 min-h-[1.5rem]">
+                  Prix de vente (€) *
                 </label>
                 <input
-                  id="prix_jour"
+                  id="prix_vente"
                   type="number"
-                  step="0.01"
-                  min="0"
-                  value={prixJour}
-                  onChange={(e) => setPrixJour(e.target.value)}
+                  step="1000"
+                  min="1"
+                  value={prixVente}
+                  onChange={(e) => setPrixVente(e.target.value)}
                   required
                   className="input"
-                  placeholder="15"
+                  placeholder="Ex: 850 000"
                 />
               </div>
 

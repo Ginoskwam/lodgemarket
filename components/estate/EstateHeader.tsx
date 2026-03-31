@@ -22,19 +22,25 @@ export function EstateHeader() {
 
       <div className="hidden items-center gap-8 md:flex">
         <Link
-          href={`${prefix}/annonces`}
+          href={`${prefix}/catalogue`}
           className="border-b-2 border-estate-on-tertiary-container py-1 text-sm font-semibold text-estate-primary"
         >
-          Explorer les propriétés
+          Catalogue
         </Link>
-        <Link href={`${prefix}/annonces/nouvelle`} className={navLink}>
-          Vendre votre gîte
+        <Link href={`${prefix}/deposer-un-bien`} className={navLink}>
+          Déposer un bien
         </Link>
-        <Link href={`${prefix}/#parcours`} className={navLink}>
-          Notre méthodologie
+        <Link href={`${prefix}/comment-ca-marche`} className={navLink}>
+          Comment ça marche
         </Link>
-        <Link href={`${prefix}/aide`} className={navLink}>
-          Aide &amp; Guides
+        <Link href={`${prefix}/ressources`} className={navLink}>
+          Ressources
+        </Link>
+        <Link href={`${prefix}/contact`} className={navLink}>
+          Contact
+        </Link>
+        <Link href={`${prefix}/dashboard`} className={navLink}>
+          Mon espace
         </Link>
       </div>
 
@@ -66,12 +72,14 @@ export function EstateHeader() {
         )}
       >
         <div className="flex flex-col gap-3">
-          <Link href={`${prefix}/annonces`} className="font-semibold text-estate-primary">
-            Explorer les propriétés
+          <Link href={`${prefix}/catalogue`} className="font-semibold text-estate-primary">
+            Catalogue
           </Link>
-          <Link href={`${prefix}/annonces/nouvelle`}>Vendre votre gîte</Link>
-          <Link href={`${prefix}/#parcours`}>Notre méthodologie</Link>
-          <Link href={`${prefix}/aide`}>Aide &amp; Guides</Link>
+          <Link href={`${prefix}/deposer-un-bien`}>Déposer un bien</Link>
+          <Link href={`${prefix}/comment-ca-marche`}>Comment ça marche</Link>
+          <Link href={`${prefix}/ressources`}>Ressources</Link>
+          <Link href={`${prefix}/contact`}>Contact</Link>
+          <Link href={`${prefix}/dashboard`}>Mon espace</Link>
           <Link href={`${prefix}/auth/login`}>Connexion</Link>
           <div className="pt-2">
             <LanguageSwitcher />

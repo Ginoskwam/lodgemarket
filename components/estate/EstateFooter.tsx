@@ -26,8 +26,8 @@ export async function EstateFooter() {
           <h5 className="font-bold text-estate-primary">Plateforme</h5>
           <ul className="space-y-2 text-sm text-estate-on-surface/60">
             <li>
-              <Link className="transition-colors hover:text-estate-on-tertiary-container" href={`${p}/annonces`}>
-                Explorer les Gîtes
+              <Link className="transition-colors hover:text-estate-on-tertiary-container" href={`${p}/catalogue`}>
+                Catalogue
               </Link>
             </li>
             <li>
@@ -38,14 +38,14 @@ export async function EstateFooter() {
             <li>
               <Link
                 className="transition-colors hover:text-estate-on-tertiary-container"
-                href={`${p}/annonces/nouvelle`}
+                href={`${p}/deposer-un-bien`}
               >
-                Espace Vendeur
+                Déposer un bien
               </Link>
             </li>
             <li>
-              <Link className="transition-colors hover:text-estate-on-tertiary-container" href={`${p}/aide`}>
-                Guides
+              <Link className="transition-colors hover:text-estate-on-tertiary-container" href={`${p}/ressources`}>
+                Ressources
               </Link>
             </li>
           </ul>
@@ -54,9 +54,14 @@ export async function EstateFooter() {
           <h5 className="font-bold text-estate-primary">Société</h5>
           <ul className="space-y-2 text-sm text-estate-on-surface/60">
             <li>
-              <a className="transition-colors hover:text-estate-on-tertiary-container" href="mailto:info@newinc.be">
+              <Link className="transition-colors hover:text-estate-on-tertiary-container" href={`${p}/contact`}>
                 Contact
-              </a>
+              </Link>
+            </li>
+            <li>
+              <Link className="transition-colors hover:text-estate-on-tertiary-container" href={`${p}/cgu`}>
+                CGU
+              </Link>
             </li>
             <li>
               <Link className="transition-colors hover:text-estate-on-tertiary-container" href={`${p}/terms`}>

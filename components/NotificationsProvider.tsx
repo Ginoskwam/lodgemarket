@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { useEffect, useMemo, useState } from 'react'
+import { tryCreateBrowserClient } from '@/lib/supabase/client'
 import { useNotifications } from '@/hooks/useNotifications'
 import { updateAppBadge } from '@/lib/badge'
 import { usePathname } from 'next/navigation'
@@ -20,16 +20,19 @@ export function NotificationsProvider() {
   const [userId, setUserId] = useState<string | null>(null)
   const [swRegistration, setSwRegistration] = useState<ServiceWorkerRegistration | null>(null)
   const pathname = usePathname()
-  const supabase = createClient()
+  const supabase = useMemo(() => tryCreateBrowserClient(), [])
 
   // Extraire l'ID de conversation depuis l'URL si on est sur une page de conversation
   const activeConversationId = pathname?.match(/\/messages\/([^\/]+)/)?.[1] || null
 
   // Récupérer l'utilisateur connecté
   useEffect(() => {
+    if (!supabase) return
+    const client = supabase
+
     async function getUser() {
       try {
-        const { data: { user }, error } = await supabase.auth.getUser()
+        const { data: { user }, error } = await client.auth.getUser()
         if (error) {
           setUserId(null)
           return
@@ -45,7 +48,7 @@ export function NotificationsProvider() {
     // Écouter les changements d'authentification
     let subscription: any = null
     try {
-      const result = supabase.auth.onAuthStateChange(() => {
+      const result = client.auth.onAuthStateChange(() => {
         getUser()
       })
       subscription = result?.data?.subscription
@@ -62,7 +65,7 @@ export function NotificationsProvider() {
         // Ignorer les erreurs de nettoyage
       }
     }
-  }, [])
+  }, [supabase])
 
   // Enregistrer le service worker et la subscription push
   useEffect(() => {

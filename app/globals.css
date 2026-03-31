@@ -203,3 +203,32 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* shadcn/ui — variables HSL (sans modifier l’ordre @import / @tailwind ci-dessus) */
+@layer base {
+  :root {
+    --background: 40 20% 98%;
+    --foreground: 144 7% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 144 7% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 144 7% 11%;
+    --primary: 21 91% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 10% 94%;
+    --secondary-foreground: 144 7% 20%;
+    --muted: 40 10% 94%;
+    --muted-foreground: 215 16% 42%;
+    --accent: 40 15% 92%;
+    --accent-foreground: 144 7% 11%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 40 10% 88%;
+    --input: 40 10% 88%;
+    --ring: 152 64% 22%;
+    --radius: 0.5rem;
+  }
+  * {
+    border-color: hsl(var(--border));
+  }
+}

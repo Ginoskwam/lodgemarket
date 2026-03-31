@@ -1,6 +1,8 @@
 import type { Config } from 'tailwindcss'
+import tailwindcssAnimate from 'tailwindcss-animate'
 
 const config: Config = {
+  darkMode: ['class'],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -10,6 +12,36 @@ const config: Config = {
     extend: {
       /** Design system Stitch — Lodgemarket (gîtes) */
       colors: {
+        /** shadcn/ui — tokens HSL (voir app/globals.css) */
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
         estate: {
           primary: '#061b0e',
           'on-primary': '#ffffff',
@@ -39,7 +71,8 @@ const config: Config = {
         },
         // Palette shell app (héritage) : charbon / brique / orange / crème
         primary: {
-          DEFAULT: '#C2410C', // Orange brûlé principal
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
           dark: '#9A3412',
           light: '#EA580C',
           50: '#FFF7ED',
@@ -115,10 +148,13 @@ const config: Config = {
       borderRadius: {
         'soft': '12px',
         'softer': '16px',
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
       },
     },
   },
-  plugins: [],
+  plugins: [tailwindcssAnimate],
 }
 export default config
 

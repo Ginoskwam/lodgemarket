@@ -1,0 +1,60 @@
+Issue Type,Epic Name,Summary,Priority,Original Estimate,Dependencies,Acceptance Criteria
+Epic,AUTH & ONBOARDING,"AUTH - Authentification et onboarding",Highest,,,
+Story,AUTH & ONBOARDING,"AUTH-01 Signup email/password",Highest,1d,,"Compte cree; profil initial cree; erreurs email deja utilise gerees"
+Story,AUTH & ONBOARDING,"AUTH-02 Login/logout + session persistee",Highest,1d,AUTH-01,"Connexion/deconnexion OK; session conservee; redirection post-login OK"
+Story,AUTH & ONBOARDING,"AUTH-03 Onboarding role buyer/seller/agency",Highest,1d,AUTH-01,"Choix role obligatoire premiere connexion; role persiste en base"
+Story,AUTH & ONBOARDING,"AUTH-04 Profil minimum requis pour actions transactionnelles",High,1d,AUTH-03,"Blocage demande dossier/visite si profil incomplet; message explicite"
+Story,AUTH & ONBOARDING,"AUTH-05 Forgot/reset password",Medium,0.5d,AUTH-01,"Email reset envoye; lien expire gere; reset effectif"
+Epic,CATALOG & PDP,"CATALOG - Recherche et fiche bien",Highest,,,
+Story,CATALOG & PDP,"CAT-01 Catalogue publie avec pagination",Highest,1.5d,,"Uniquement annonces published; pagination fonctionnelle; etat vide"
+Story,CATALOG & PDP,"CAT-02 Filtres essentiels + URL sync",Highest,1.5d,CAT-01,"Filtres localisation/prix/capacite/type/badge; URL reflete etat filtres"
+Story,CATALOG & PDP,"CAT-03 Tri pertinence/recence/prix",High,1d,CAT-01,"Tri applique correctement; fallback tri par pertinence"
+Story,CATALOG & PDP,"PDP-01 Fiche bien publique premium",Highest,2d,CAT-01,"Sections cles affichees; CTA visibles; chargement performant mobile"
+Story,CATALOG & PDP,"PDP-02 Gating donnees sensibles selon permissions",Highest,1.5d,PDP-01,"Adresse precise/docs sensibles masques sans droits; controle backend confirme"
+Story,CATALOG & PDP,"PDP-03 Affichage badges trust + tooltip",High,0.5d,PDP-01,"Badges verified/certified affiches selon statut; tooltip explicatif"
+Epic,BUYER ACTIONS,"BUYER - Favoris et demandes",Highest,,,
+Story,BUYER ACTIONS,"FAV-01 Ajouter/retirer favoris (idempotent)",High,1d,AUTH-04;CAT-01,"Pas de doublon; toggle instantane; gestion clics rapides"
+Story,BUYER ACTIONS,"FAV-02 Liste favoris dashboard buyer",Medium,0.75d,FAV-01,"Liste paginee; etat vide; lien vers fiche"
+Story,BUYER ACTIONS,"LEAD-DOC-01 Demande de dossier",Highest,1.5d,AUTH-04;PDP-01,"Lead dossier_request:new cree; validation formulaire; confirmation"
+Story,BUYER ACTIONS,"LEAD-DOC-02 Traitement demande dossier cote seller/agency",Highest,1.5d,LEAD-DOC-01,"Transitions new/in_review/accepted/declined; motif refus obligatoire"
+Story,BUYER ACTIONS,"LEAD-VIS-01 Demande de visite",Highest,1.5d,AUTH-04;PDP-01,"Lead visit_request:new cree avec validations"
+Story,BUYER ACTIONS,"LEAD-VIS-02 Traitement demande visite cote seller/agency",High,1d,LEAD-VIS-01,"Statut mis a jour; historisation; notification buyer"
+Epic,SELLER LISTING,"SELLER - Creation et edition d'annonce",Highest,,,
+Story,SELLER LISTING,"SELL-01 Wizard multi-step creation annonce",Highest,3d,AUTH-03,"Etapes base/localisation/business/features/media/docs; progression claire"
+Story,SELLER LISTING,"SELL-02 Autosave draft et reprise",High,1.5d,SELL-01,"Brouillon sauvegarde; reprise a l'etape courante"
+Story,SELLER LISTING,"SELL-03 Validation globale avant soumission",Highest,1d,SELL-01,"Soumission bloquee si requis manquants; erreurs contextualisees"
+Story,SELLER LISTING,"SELL-04 Transition draft -> submitted",Highest,0.75d,SELL-03,"Statut change correctement; confirmation envoyee"
+Story,SELLER LISTING,"SELL-05 Re-review obligatoire apres modification sensible",High,1d,SELL-04,"Published -> draft si champ sensible modifie"
+Epic,DOCUMENTS & STORAGE,"DOCS - Upload et visibilite documentaire",Highest,,,
+Story,DOCUMENTS & STORAGE,"DOC-01 Upload securise (type/taille/mime)",Highest,1.5d,SELL-01,"Formats autorises uniquement; rejets explicites; retry possible"
+Story,DOCUMENTS & STORAGE,"DOC-02 Classification documents (public/restricted)",Highest,1d,DOC-01,"Classe obligatoire; persistee; visible dans UI"
+Story,DOCUMENTS & STORAGE,"DOC-03 Regles d'acces docs sensibles buyer",Highest,1.5d,DOC-02;LEAD-DOC-02,"Acces autorise uniquement si lead accepte"
+Story,DOCUMENTS & STORAGE,"DOC-04 Audit logs acces/telechargement docs",High,1d,DOC-03,"Chaque acces sensible journalise (user, doc, timestamp)"
+Epic,ADMIN MODERATION,"ADMIN - Moderation et publication",Highest,,,
+Story,ADMIN MODERATION,"ADM-01 Queue des annonces soumises",Highest,1d,SELL-04,"Liste filtrable des submitted; acces detail"
+Story,ADMIN MODERATION,"ADM-02 Decisions moderation approve/request_changes/reject",Highest,1.5d,ADM-01,"Motif obligatoire pour request_changes/reject; statut mis a jour"
+Story,ADMIN MODERATION,"ADM-03 Publication admin-only",Highest,0.75d,ADM-02,"Seule annonce approved publiable; publication journalisee"
+Story,ADMIN MODERATION,"ADM-04 Attribution badges verified/certified",High,1d,ADM-02,"Badge assignable si prerequis; retrait possible avec motif"
+Story,ADMIN MODERATION,"ADM-05 Gestion basique utilisateurs/roles",Medium,1.5d,AUTH-03,"Recherche utilisateur; changement role controle; audit action"
+Epic,DASHBOARDS,"DASH - Cockpits role-based",High,,,
+Story,DASHBOARDS,"DASH-B-01 Dashboard buyer (favoris + demandes)",High,1d,FAV-02;LEAD-DOC-01;LEAD-VIS-01,"Statuts visibles; actions rapides; empty states"
+Story,DASHBOARDS,"DASH-S-01 Dashboard seller/agency (annonces + leads)",High,1.5d,SELL-04;LEAD-DOC-02;LEAD-VIS-02,"Vue par statut; acces edition; acces traitement leads"
+Story,DASHBOARDS,"DASH-A-01 Dashboard admin (queue + compteurs)",High,1d,ADM-01,"Compteurs pending; acces actions moderation"
+Epic,NOTIFICATIONS,"NOTIF - Emails et notifications transactionnelles",High,,,
+Story,NOTIFICATIONS,"NOTIF-01 Event bus simple (triggers metier)",High,1d,LEAD-DOC-01;LEAD-VIS-01;ADM-02,"Evenements emis pour lead/listing/badge"
+Story,NOTIFICATIONS,"NOTIF-02 Templates email MVP",High,1d,NOTIF-01,"Templates: lead_created, lead_accepted/declined, listing_submitted/approved/rejected/published"
+Story,NOTIFICATIONS,"NOTIF-03 Envoi notifications in-app basique",Medium,1d,NOTIF-01,"Notifications visibles dashboard; marquage lu/non lu"
+Story,NOTIFICATIONS,"NOTIF-04 Retry + logs d'envoi",Medium,1d,NOTIF-02,"Echecs traces; retries configures"
+Epic,SECURITY & RLS,"SEC - Permissions fortes et conformite",Highest,,,
+Story,SECURITY & RLS,"SEC-01 Matrice RBAC implementee app layer",Highest,1d,AUTH-03,"Actions interdites cote UI/API selon role"
+Story,SECURITY & RLS,"SEC-02 Policies RLS properties/favorites/leads/documents",Highest,2.5d,SEC-01,"Aucun acces hors scope ownership; tests positifs/negatifs"
+Story,SECURITY & RLS,"SEC-03 Admin override controle + audit",High,1d,SEC-02,"Override admin possible et journalise"
+Story,SECURITY & RLS,"SEC-04 Regles retention/logs RGPD MVP",Medium,1d,SEC-03,"Duree de conservation definie; suppression compte geree"
+Epic,QUALITY BUFFER,"QUAL - Buffer qualite et robustesse",High,,,
+Story,QUALITY BUFFER,"QUAL-01 Design system states loading/empty/error/success",High,1.5d,CAT-01;PDP-01;DASH-B-01,"Tous ecrans critiques couvrent 4 etats"
+Story,QUALITY BUFFER,"QUAL-02 Accessibilite base (labels, focus, contrastes)",High,1.5d,AUTH-01;CAT-01;PDP-01,"Navigation clavier OK; labels presents; contrastes conformes"
+Story,QUALITY BUFFER,"QUAL-03 SEO public (metadata, slugs, schema basique)",Medium,1d,CAT-01;PDP-01,"Metadata dynamiques; slugs propres; schema markup minimal"
+Story,QUALITY BUFFER,"QUAL-04 Observabilite erreurs + audit exploitation",High,1d,SEC-03,"Erreurs critiques loggees; tableaux de bord ops minimum"
+Story,QUALITY BUFFER,"QUAL-05 Tests E2E parcours critiques",Highest,2d,AUTH-04;LEAD-DOC-02;SELL-04;ADM-03,"5 parcours critiques verts"
+Story,QUALITY BUFFER,"QUAL-06 Test perf mobile des pages cles",Medium,1d,CAT-01;PDP-01,"Objectifs perf definis et respectes"
+Story,QUALITY BUFFER,"QUAL-07 Stabilisation pre-release + bug bash",High,1d,QUAL-05,"Aucun bug bloquant ouvert; checklist release validee"

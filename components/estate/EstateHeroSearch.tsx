@@ -3,7 +3,7 @@ import { EstateIcon } from './EstateIcon'
 
 export async function EstateHeroSearch() {
   const locale = await getLocale()
-  const action = `/${locale}/annonces`
+  const action = `/${locale}/catalogue`
 
   return (
     <form
@@ -18,7 +18,7 @@ export async function EstateHeroSearch() {
             Localisation
           </label>
           <input
-            name="ville"
+            name="city"
             className="w-full border-0 bg-transparent p-0 font-medium text-estate-on-surface focus:ring-0"
             placeholder="Ardennes belges, Spa, Durbuy"
             defaultValue=""
@@ -33,7 +33,7 @@ export async function EstateHeroSearch() {
             Budget d&apos;achat max (€)
           </label>
           <input
-            name="prix_vente_max"
+            name="prix_max"
             type="number"
             min={0}
             step={1000}

@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import type { SupabaseClient } from '@supabase/supabase-js'
+import { tryCreateBrowserClient } from '@/lib/supabase/client'
 import { updateBadgeFromUnreadMessages } from '@/lib/badge'
 import type { Message } from '@/types/database'
 
@@ -17,7 +18,10 @@ import type { Message } from '@/types/database'
 export function useNotifications(currentUserId: string | null, activeConversationId: string | null = null) {
   const [permission, setPermission] = useState<NotificationPermission>('default')
   const [isSupported, setIsSupported] = useState(false)
-  const supabaseRef = useRef(createClient())
+  const supabaseRef = useRef<SupabaseClient | null>(null)
+  if (typeof window !== 'undefined' && supabaseRef.current === null) {
+    supabaseRef.current = tryCreateBrowserClient()
+  }
   const channelRef = useRef<any>(null)
   const notifiedMessagesRef = useRef<Set<string>>(new Set())
 
@@ -172,9 +176,11 @@ export function useNotifications(currentUserId: string | null, activeConversatio
 
   // Écouter les nouveaux messages
   useEffect(() => {
-    if (!currentUserId || !isSupported) {
+    if (!currentUserId || !isSupported || !supabaseRef.current) {
       return
     }
+
+    const sb = supabaseRef.current
 
     // Sur iOS/Safari, la permission doit être demandée dans un contexte utilisateur
     // On ne peut pas la demander automatiquement, il faut attendre une interaction
@@ -191,7 +197,7 @@ export function useNotifications(currentUserId: string | null, activeConversatio
     }
 
     // Écouter tous les nouveaux messages destinés à l'utilisateur
-    const channel = supabaseRef.current
+    const channel = sb
       .channel(`notifications:${currentUserId}`)
       .on(
         'postgres_changes',
@@ -205,7 +211,7 @@ export function useNotifications(currentUserId: string | null, activeConversatio
           const newMessage = payload.new as Message
 
           // Récupérer les informations de l'expéditeur
-          const { data: sender } = await supabaseRef.current
+          const { data: sender } = await sb
             .from('profiles')
             .select('pseudo')
             .eq('id', newMessage.expediteur_id)
@@ -229,7 +235,7 @@ export function useNotifications(currentUserId: string | null, activeConversatio
 
     return () => {
       if (channelRef.current) {
-        supabaseRef.current.removeChannel(channelRef.current)
+        sb.removeChannel(channelRef.current)
         channelRef.current = null
       }
     }

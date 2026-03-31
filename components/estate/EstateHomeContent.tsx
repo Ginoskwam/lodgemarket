@@ -1,6 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { getLocale } from 'next-intl/server'
+import { getPublishedArticles } from '@/lib/articles/queries'
+import { getFeaturedProperties } from '@/lib/properties/queries'
+import { PropertyCard } from '@/components/property/PropertyCard'
 import { EstateCertifiedBadge } from './EstateBadge'
 import { EstateButton } from './EstateButton'
 import { EstateHeroSearch } from './EstateHeroSearch'
@@ -63,6 +66,8 @@ const sellerCtaImg =
 export async function EstateHomeContent() {
   const locale = await getLocale()
   const p = `/${locale}`
+  const featuredDb = await getFeaturedProperties(3)
+  const publishedArticles = await getPublishedArticles()
 
   return (
     <>
@@ -99,7 +104,7 @@ export async function EstateHomeContent() {
             {['Bords de Semois', 'Hautes Fagnes', 'Chalets en Forêt', 'Manoirs de Pierre'].map((label) => (
               <Link
                 key={label}
-                href={`${p}/annonces?ville=${encodeURIComponent(label)}`}
+                href={`${p}/catalogue?city=${encodeURIComponent(label)}`}
                 className="rounded-full border border-estate-outline-variant/20 bg-estate-surface px-4 py-2 text-sm transition-colors hover:border-estate-primary"
               >
                 {label}
@@ -110,7 +115,7 @@ export async function EstateHomeContent() {
               Uniquement certifiés
             </span>
           </div>
-          <Link href={`${p}/annonces`} className="text-sm font-bold text-estate-primary underline underline-offset-4">
+          <Link href={`${p}/catalogue`} className="text-sm font-bold text-estate-primary underline underline-offset-4">
             Filtres avancés
           </Link>
         </div>
@@ -166,56 +171,60 @@ export async function EstateHomeContent() {
                 Découvrez notre sélection d&apos;actifs hôteliers et gîtes ruraux dans les plus beaux coins de Wallonie.
               </p>
             </div>
-            <EstateButton variant="secondary" href={`${p}/annonces`} className="px-6 py-3 font-bold">
-              Voir toutes les annonces
+            <EstateButton variant="secondary" href={`${p}/catalogue`} className="px-6 py-3 font-bold">
+              Voir tout le catalogue
             </EstateButton>
           </div>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
-            {featured.map((item) => (
-              <div
-                key={item.title}
-                className="group flex flex-col overflow-hidden rounded-xl bg-white shadow-sm transition-all duration-500 hover:shadow-xl"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src={item.img}
-                    alt=""
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width:768px) 100vw, 33vw"
-                  />
-                  <div className="absolute left-4 top-4">
-                    <EstateCertifiedBadge label="GÎTE CERTIFIÉ CGT" />
-                  </div>
-                </div>
-                <div className="flex flex-grow flex-col p-6">
-                  <div className="mb-2 flex items-start justify-between">
-                    <h3 className="font-estate-serif text-xl font-bold text-estate-on-surface">{item.title}</h3>
-                    <span className="font-bold text-estate-primary">{item.price}</span>
-                  </div>
-                  <p className="mb-4 flex items-center gap-1 text-sm text-estate-on-surface-variant">
-                    <EstateIcon name="location_on" className="text-sm" />
-                    {item.place}
-                  </p>
-                  <div className="mb-4 grid grid-cols-2 gap-4 border-y border-estate-outline-variant/10 py-4">
-                    <div className="flex items-center gap-2">
-                      <EstateIcon name="group" className="text-estate-outline" />
-                      <span className="text-xs font-medium text-estate-on-surface-variant">{item.guests}</span>
+            {featuredDb.length > 0
+              ? featuredDb.map((item) => (
+                  <PropertyCard key={item.id} property={item} locale={locale} />
+                ))
+              : featured.map((item) => (
+                  <div
+                    key={item.title}
+                    className="group flex flex-col overflow-hidden rounded-xl bg-white shadow-sm transition-all duration-500 hover:shadow-xl"
+                  >
+                    <div className="relative h-64 overflow-hidden">
+                      <Image
+                        src={item.img}
+                        alt=""
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width:768px) 100vw, 33vw"
+                      />
+                      <div className="absolute left-4 top-4">
+                        <EstateCertifiedBadge label="GÎTE CERTIFIÉ CGT" />
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <EstateIcon name="trending_up" className="text-estate-outline" />
-                      <span className="text-xs font-medium text-estate-on-surface-variant">
-                        Rendement {item.yield}
-                      </span>
+                    <div className="flex flex-grow flex-col p-6">
+                      <div className="mb-2 flex items-start justify-between">
+                        <h3 className="font-estate-serif text-xl font-bold text-estate-on-surface">{item.title}</h3>
+                        <span className="font-bold text-estate-primary">{item.price}</span>
+                      </div>
+                      <p className="mb-4 flex items-center gap-1 text-sm text-estate-on-surface-variant">
+                        <EstateIcon name="location_on" className="text-sm" />
+                        {item.place}
+                      </p>
+                      <div className="mb-4 grid grid-cols-2 gap-4 border-y border-estate-outline-variant/10 py-4">
+                        <div className="flex items-center gap-2">
+                          <EstateIcon name="group" className="text-estate-outline" />
+                          <span className="text-xs font-medium text-estate-on-surface-variant">{item.guests}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <EstateIcon name="trending_up" className="text-estate-outline" />
+                          <span className="text-xs font-medium text-estate-on-surface-variant">
+                            Rendement {item.yield}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="mt-auto flex items-center gap-2 text-sm font-bold text-estate-on-tertiary-container">
+                        <EstateIcon name="bar_chart" className="text-sm" />
+                        Revenu annuel : {item.revenue}
+                      </div>
                     </div>
                   </div>
-                  <div className="mt-auto flex items-center gap-2 text-sm font-bold text-estate-on-tertiary-container">
-                    <EstateIcon name="bar_chart" className="text-sm" />
-                    Revenu annuel : {item.revenue}
-                  </div>
-                </div>
-              </div>
-            ))}
+                ))}
           </div>
         </div>
       </section>
@@ -362,21 +371,36 @@ export async function EstateHomeContent() {
       <section className="mx-auto max-w-7xl px-6 py-24">
         <h2 className="mb-12 font-estate-serif text-3xl text-estate-on-surface">Le mag de l&apos;investissement</h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {resources.map((r) => (
-            <Link key={r.title} href={`${p}/aide`} className="group">
-              <div className="mb-4 h-48 overflow-hidden rounded-lg">
-                <Image
-                  src={r.img}
-                  alt=""
-                  width={400}
-                  height={192}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <h4 className="text-xl font-bold transition-colors group-hover:text-estate-primary">{r.title}</h4>
-              <p className="mt-2 text-sm text-estate-on-surface-variant">{r.excerpt}</p>
-            </Link>
-          ))}
+          {publishedArticles.length > 0
+            ? publishedArticles.slice(0, 3).map((a) => (
+                <Link
+                  key={a.id}
+                  href={`${p}/ressources/${a.slug}`}
+                  className="group flex flex-col rounded-xl border border-estate-outline-variant/15 bg-estate-surface-container-low p-6 transition-colors hover:border-estate-primary/40"
+                >
+                  <h4 className="text-xl font-bold transition-colors group-hover:text-estate-primary">{a.title}</h4>
+                  <p className="mt-2 line-clamp-4 text-sm text-estate-on-surface-variant">
+                    {a.content.replace(/\s+/g, ' ').trim().slice(0, 180)}
+                    {a.content.length > 180 ? '…' : ''}
+                  </p>
+                  <span className="mt-4 text-sm font-semibold text-estate-primary">Lire l&apos;article →</span>
+                </Link>
+              ))
+            : resources.map((r) => (
+                <Link key={r.title} href={`${p}/ressources`} className="group">
+                  <div className="mb-4 h-48 overflow-hidden rounded-lg">
+                    <Image
+                      src={r.img}
+                      alt=""
+                      width={400}
+                      height={192}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <h4 className="text-xl font-bold transition-colors group-hover:text-estate-primary">{r.title}</h4>
+                  <p className="mt-2 text-sm text-estate-on-surface-variant">{r.excerpt}</p>
+                </Link>
+              ))}
         </div>
       </section>
 
@@ -392,11 +416,11 @@ export async function EstateHomeContent() {
             Maximisez votre valeur de sortie avec une plateforme dédiée aux actifs de prestige.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <EstateButton variant="onDark" href={`${p}/annonces/nouvelle`}>
+            <EstateButton variant="onDark" href={`${p}/deposer-un-bien`}>
               Mettre en vente
             </EstateButton>
             <Link
-              href={`${p}/aide`}
+              href={`${p}/contact`}
               className="rounded-lg border border-white/30 bg-white/10 px-10 py-4 font-bold backdrop-blur-md transition-all hover:bg-white/20"
             >
               Audit de valorisation
